@@ -11,3 +11,6 @@ def gc_content(fasta_file):
     id = ''
     gc = 0
     return id, gc
+
+from Bio import SeqIO
+from Bio.Seq import Seq 
