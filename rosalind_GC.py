@@ -9,17 +9,33 @@
 
 def gc_content(fasta_file):
     id_list = [seq_record.id for seq_record in sequences]
-    sequence_list = [seq_record.seq for seq_record in sequences]
+    sequence_list = [str(seq_record.seq) for seq_record in sequences]
     
     id_seq_dict = {key:value for key, value in zip(id_list, sequence_list)}
 
-    id = ''
-    gc_percent = 0
 
-    return id, gc_percent
+    calculation = []
+
+    for seq in id_seq_dict.values():
+        gc_count = seq.count('G') + seq.count('C')
+        calculation.append((gc_count/len(seq)*100))
+
+    sorted_dict = {key:value for key, value in zip (id_list, calculation)}
+    sorted_dict = sorted(sorted_dict.items(), key=lambda x: x[1], reverse=True)
+    largest_gc = sorted_dict[0]
+
+    id = largest_gc[0].strip('\\')
+    gc = largest_gc[1]
+
+    return id, gc
 
 from Bio import SeqIO
 from Bio.Seq import Seq 
 
-fasta_file = 'fasta.rtf'
+fasta_file = 'insert_filepath'
 sequences = list(SeqIO.parse(fasta_file, 'fasta'))
+
+id_value, gc_value = gc_content(sequences)
+
+print(id_value)
+print(gc_value)
