@@ -14,11 +14,18 @@ def find_spliced_motif(dna_string, subsequence):
     dna_string = dna_string.strip().upper()
     subsequence = subsequence.strip().upper()
 
-    for i in range(len(dna_string) - len(subsequence) + 1):
+    if subsequence in dna_string:
+        print("Subsequence found in DNA sequence")
+    else:
+        print("Subsequence not found in DNA sequence")
+ 
+    for i in range(len(dna_string)):
         if dna_string[i:i+len(subsequence)] == subsequence:
             instances.append(i+1)
 
-    return instances
+    index = dna_seq.find(substring_seq)
+
+    return instances, index
 
 from Bio import SeqIO
 from Bio.Seq import Seq 
@@ -29,6 +36,5 @@ sequences = list(SeqIO.parse(fasta_file, 'fasta'))
 dna_seq = str(sequences[0].seq)
 substring_seq = str(sequences[1].seq)
 
-print(find_spliced_motif(dna_seq, substring_seq))
-
-#49
+print(find_spliced_motif(dna_string=dna_seq, 
+                         subsequence=substring_seq))
