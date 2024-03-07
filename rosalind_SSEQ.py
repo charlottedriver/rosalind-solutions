@@ -38,3 +38,7 @@ substring_seq = str(sequences[1].seq)
 
 print(find_spliced_motif(dna_string=dna_seq, 
                          subsequence=substring_seq))
+
+a = 'ACGTACGTGACG'
+b = 'GTA'
+print(find_spliced_motif(a, b))
